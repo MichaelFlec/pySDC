@@ -122,7 +122,7 @@ class allencahn_temp_imex(ptype):
                 f.expl[..., 0] = self.fft.forward(tmpf)
 
             f.impl[..., 1] = -self.params.D * self.K2 * u[..., 1]
-            f.expl[..., 1] = + f.impl[..., 0] + f.expl[..., 0]
+            f.expl[..., 1] = f.impl[..., 0] + f.expl[..., 0]
 
         else:
 
@@ -138,7 +138,7 @@ class allencahn_temp_imex(ptype):
             u_hat = self.fft.forward(u[..., 1])
             lap_u_hat = -self.params.D * self.K2 * u_hat
             f.impl[..., 1] = self.fft.backward(lap_u_hat, f.impl[..., 1])
-            f.expl[..., 1] = + f.impl[..., 0] + f.expl[..., 0]
+            f.expl[..., 1] = f.impl[..., 0] + f.expl[..., 0]
 
         return f
 
